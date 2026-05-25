@@ -4,11 +4,11 @@ import Logo from "@/assets/Wanderlast.png";
 import { FaUser } from "react-icons/fa";
 const Navbar = () => {
   return (
-    <nav className="bg-base-100 shadow-sm ">
+    <nav className="bg-base-100 shadow-sm z-50 fixed top-0 w-full">
       <div className="flex justify-between items-center py-1 container mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -39,23 +39,26 @@ const Navbar = () => {
                 <Link href={"/my-bookings"}>My Bookings</Link>
               </li>
               <li>
+                <Link href={"/add-destination"}>Add Destination</Link>
+              </li>
+              <li className="inline-flex md:hidden">
                 <Link href={"/profile"} className="flex items-center">
                   Profile
                 </Link>
               </li>
-              <li>
+              <li className="inline-flex md:hidden">
                 <Link href={"/login"} className="flex items-center">
                   Login
                 </Link>
               </li>
-              <li>
+              <li className="inline-flex md:hidden">
                 <Link href={"/sign-up"} className="flex items-center">
                   Sign Up
                 </Link>
               </li>
             </ul>
           </div>
-          <div className="hidden md:inline-flex">
+          <div className="hidden lg:inline-flex">
             <ul className="menu menu-horizontal px-1">
               {" "}
               <li>
@@ -66,6 +69,10 @@ const Navbar = () => {
               </li>
               <li>
                 <Link href={"/my-bookings"}>My Bookings</Link>
+              </li>
+              <li>
+                {" "}
+                <Link href={"/add-destination"}>Add Destination</Link>
               </li>
             </ul>
           </div>
