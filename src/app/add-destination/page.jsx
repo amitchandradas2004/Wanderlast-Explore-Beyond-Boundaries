@@ -36,6 +36,7 @@ const AddDestinationPage = () => {
     });
     const data = await res.json();
     console.log(data);
+    alert("Data submitted");
   };
   return (
     <div className=" bg-gray-50 pt-20 pb-15 px-4">

@@ -33,7 +33,7 @@ const Navbar = () => {
                 <Link href={"/"}>Home</Link>
               </li>
               <li>
-                <Link href={"/destination"}>Destination</Link>
+                <Link href={"/destinations"}>Destination</Link>
               </li>
               <li>
                 <Link href={"/my-bookings"}>My Bookings</Link>
@@ -65,7 +65,7 @@ const Navbar = () => {
                 <Link href={"/"}>Home</Link>
               </li>
               <li>
-                <Link href={"/destination"}>Destination</Link>
+                <Link href={"/destinations"}>Destination</Link>
               </li>
               <li>
                 <Link href={"/my-bookings"}>My Bookings</Link>
