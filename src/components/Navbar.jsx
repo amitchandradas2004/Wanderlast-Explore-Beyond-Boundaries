@@ -73,7 +73,7 @@ const Navbar = () => {
         <div className="navbar-center hidden md:flex">
           {" "}
           <Link href={"/"}>
-            <h2 className="text-2xl font-bold text-[#16A1BD]">Wanderlust</h2>
+            <h2 className="text-2xl font-bold text-[#00A8E7]">Wanderlust</h2>
           </Link>
         </div>
         <div className="navbar-end hidden md:inline-flex">
