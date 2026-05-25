@@ -5,7 +5,7 @@ import { ImLocation2 } from "react-icons/im";
 import { SlCalender } from "react-icons/sl";
 
 const DestinationCard = ({ destination }) => {
-  const { destinationName, country, price, duration, imageUrl, category } =
+  const { _id, destinationName, country, price, duration, imageUrl, category } =
     destination;
   return (
     <div
@@ -103,7 +103,7 @@ const DestinationCard = ({ destination }) => {
           {duration}
         </div>
 
-        <Link href={`/}`}>
+        <Link href={`/destinations/${_id}`}>
           <span
             className="
            text-[#00A8E7] rounded-full text-sx h-8 mt-3 flex items-center hover:text-white

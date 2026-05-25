@@ -1,4 +1,5 @@
 import { Separator } from "@heroui/react";
+import Link from "next/link";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 const Banner = () => {
@@ -17,13 +18,16 @@ const Banner = () => {
             </p>
 
             <div className="flex flex-col md:flex-row gap-5">
-              <button className="uppercase  flex items-center gap-2 btn btn-info text-white">
-                Explore Now <FaArrowRightLong />
-              </button>
-
-              <button className="uppercase bg-white/50 text-white border-none btn">
-                View Destination
-              </button>
+              <Link href={"/destinations"}>
+                <button className="uppercase  flex items-center gap-2 btn btn-info text-white">
+                  Explore Now <FaArrowRightLong />
+                </button>
+              </Link>
+              <Link href={"/"}>
+                <button className="uppercase bg-white/50 text-white border-none btn">
+                  View Destination
+                </button>
+              </Link>
             </div>
           </div>
         </div>
