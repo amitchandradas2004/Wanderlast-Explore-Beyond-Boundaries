@@ -21,9 +21,25 @@ const categories = [
 ];
 
 const AddDestinationPage = () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const destination = Object.fromEntries(formData.entries());
+    console.log(destination);
+
+    const res = await fetch(`http://localhost:5000/destination`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(destination),
+    });
+    const data = await res.json();
+    console.log(data);
+  };
   return (
-    <div className="min-h-screen bg-gray-50 py-15 px-4">
-      <div className="container mx-auto bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+    <div className=" bg-gray-50 pt-20 pb-15 px-4">
+      <div className="container mx-auto bg-white border border-gray-200 rounded-2xl p-8 shadow-sm w-[90%]">
         {/* Heading */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800">
@@ -35,7 +51,7 @@ const AddDestinationPage = () => {
           </p>
         </div>
 
-        <form className="space-y-7">
+        <form className="space-y-7" onSubmit={onSubmit}>
           {/* Destination Name */}
           <TextField name="destinationName" isRequired>
             <Label>Destination Name</Label>
