@@ -5,11 +5,12 @@ import { FaEdit } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { RiDeleteBinLine } from "react-icons/ri";
 import BookToast from "@/components/BookToast";
+import { EditModal } from "@/components/EditModal";
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
   const res = await fetch(`http://localhost:5000/destination/${id}`);
   const destination = await res.json();
-  console.log(destination);
+  // console.log(destination);
   const {
     category,
     country,
@@ -32,10 +33,7 @@ const DestinationDetailsPage = async ({ params }) => {
           </span>
         </Link>
         <div className="flex  items-center gap-2">
-          <button className="flex items-center gap-2 btn btn-ghost btn-neutral">
-            <FaEdit />
-            Edit
-          </button>
+          <EditModal destination={destination} />
           <button className="flex items-center gap-2 btn btn-error text-white">
             <RiDeleteBinLine />
             Cancel
