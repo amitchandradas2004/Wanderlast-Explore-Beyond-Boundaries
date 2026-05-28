@@ -3,6 +3,7 @@
 import { AlertDialog, Button } from "@heroui/react";
 // import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 export function DeleteDestination({ destination }) {
@@ -16,7 +17,7 @@ export function DeleteDestination({ destination }) {
     const data = await res.json();
     // revalidatePath("/destination");
     console.log(data);
-    alert(`${destinationName} is deleted permanantly.`);
+    toast(`${destinationName} is deleted permanantly.`);
     redirect("/destinations");
   };
 

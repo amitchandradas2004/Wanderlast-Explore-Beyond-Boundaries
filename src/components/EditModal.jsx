@@ -13,6 +13,7 @@ import {
   TextField,
   Select,
 } from "@heroui/react";
+import toast from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 
 export function EditModal({ destination }) {
@@ -31,7 +32,7 @@ export function EditModal({ destination }) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const destination = Object.fromEntries(formData.entries());
-    console.log(destination);
+    // console.log(destination);
 
     const res = await fetch(`http://localhost:5000/destination/${_id}`, {
       method: "PATCH",
@@ -41,8 +42,7 @@ export function EditModal({ destination }) {
       body: JSON.stringify(destination),
     });
     const data = await res.json();
-    console.log(data);
-    alert("Data Updated");
+    toast.success("Data Updated");
   };
   return (
     <Modal>

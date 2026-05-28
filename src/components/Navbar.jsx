@@ -4,13 +4,14 @@ import { FaUser } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
 import { Avatar, Button } from "@heroui/react";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 const Navbar = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
   // console.log(user);
   const handleSignOut = async () => {
     await authClient.signOut();
-    alert("Log Out Success.");
+    toast.success("Log Out Success.");
     redirect("/login");
   };
   return (
@@ -46,7 +47,7 @@ const Navbar = () => {
                 <Link href={"/destinations"}>Destination</Link>
               </li>
               <li>
-                <Link href={"/my-bookings"}>My Bookings</Link>
+                <Link href={"/myBookings"}>My Bookings</Link>
               </li>
               <li>
                 <Link href={"/add-destination"}>Add Destination</Link>
@@ -78,7 +79,7 @@ const Navbar = () => {
                 <Link href={"/destinations"}>Destination</Link>
               </li>
               <li>
-                <Link href={"/my-bookings"}>My Bookings</Link>
+                <Link href={"/myBookings"}>My Bookings</Link>
               </li>
               <li>
                 {" "}

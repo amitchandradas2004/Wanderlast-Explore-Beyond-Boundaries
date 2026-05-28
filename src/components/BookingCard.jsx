@@ -3,18 +3,18 @@
 import { authClient } from "@/lib/auth-client";
 import { DateField, Description, Label } from "@heroui/react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const BookingCard = ({ destination }) => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
   const [departureDate, setDepartureDate] = useState(null);
   const { _id, price, destinationName, imageUrl, country } = destination;
-  // console.log(destination, "Destination");
   const handleBooking = async () => {
     const bookingData = {
-      userId: user.id,
-      userImage: user.image,
-      userName: user.name,
+      userId: user?.id,
+      userImage: user?.image,
+      userName: user?.name,
       destinationId: _id,
       destinationName,
       price,
@@ -30,27 +30,24 @@ const BookingCard = ({ destination }) => {
       body: JSON.stringify(bookingData),
     });
     const data = await res.json();
-    console.log(data);
+    toast.success(`You have successfully booked ${destinationName}`);
   };
   return (
     <div>
       <div className="sticky top-10 rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
         <div className="mb-6">
           <p className="text-sm text-gray-500">Starting from</p>
-
           <h3 className="text-4xl font-bold text-cyan-500">${price}</h3>
-
           <p className="text-gray-500">per person</p>
         </div>
 
-        {/* Date */}
         <div className="my-5">
           <Label>Date</Label>
           <DateField
+            isRequired
             onChange={setDepartureDate}
             className="w-full"
             name="date"
-            isRequired
           >
             <DateField.Group>
               <DateField.Input>

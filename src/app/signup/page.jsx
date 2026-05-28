@@ -16,6 +16,7 @@ import { Check, Eye } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 
 const RegisterPage = () => {
@@ -33,11 +34,11 @@ const RegisterPage = () => {
     });
 
     if (data) {
-      alert(`Sign Up successful.`);
+      toast.success(`Sign Up successful.`);
       redirect("/destinations");
     }
     if (error) {
-      alert(error.message);
+      toast.error(error.message);
     }
   };
   const handleGoogleSignIn = async () => {
