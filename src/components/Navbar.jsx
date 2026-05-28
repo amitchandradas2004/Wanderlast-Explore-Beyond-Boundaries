@@ -52,7 +52,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="inline-flex md:hidden">
-                <Link href={"/sign-up"} className="flex items-center">
+                <Link href={"/signup"} className="flex items-center">
                   Sign Up
                 </Link>
               </li>
@@ -96,7 +96,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href={"/sign-up"} className="flex items-center">
+              <Link href={"/signup"} className="flex items-center">
                 Sign Up
               </Link>
             </li>
