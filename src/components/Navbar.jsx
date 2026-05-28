@@ -1,10 +1,20 @@
-import Image from "next/image";
+"use client";
 import Link from "next/link";
-import Logo from "@/assets/Wanderlast.png";
 import { FaUser } from "react-icons/fa";
+import { authClient } from "@/lib/auth-client";
+import { Avatar, Button } from "@heroui/react";
+import { redirect } from "next/navigation";
 const Navbar = () => {
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+  // console.log(user);
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    alert("Log Out Success.");
+    redirect("/login");
+  };
   return (
-    <nav className="bg-base-100 shadow-sm z-50 fixed top-0 w-full">
+    <nav className="bg-base-100 shadow-sm z-50 fixed top-0 w-full items-center">
       <div className="flex justify-between items-center py-1 container mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -84,22 +94,49 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-end hidden md:inline-flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 flex items-center">
             <li>
               <Link href={"/profile"} className="flex items-center">
                 <FaUser /> Profile
               </Link>
             </li>
-            <li>
-              <Link href={"/login"} className="flex items-center">
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link href={"/signup"} className="flex items-center">
-                Sign Up
-              </Link>
-            </li>
+            {user ? (
+              <>
+                <li>
+                  <Avatar className="h-8">
+                    <Avatar.Image
+                      alt={user?.name}
+                      src={user?.image}
+                      height={50}
+                      width={50}
+                      className=""
+                    ></Avatar.Image>
+                    <Avatar.Fallback>{user?.name[0]}</Avatar.Fallback>
+                  </Avatar>
+                </li>
+                <li>
+                  <button
+                    onClick={handleSignOut}
+                    className="btn btn-secondary h-8"
+                  >
+                    LogOut
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link href={"/login"} className="flex items-center">
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link href={"/signup"} className="flex items-center">
+                    Sign Up
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
         <div className="inline-block md:hidden">
