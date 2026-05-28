@@ -8,6 +8,7 @@ import {
   Form,
   InputGroup,
   Label,
+  Separator,
   TextField,
   Toast,
 } from "@heroui/react";
@@ -39,7 +40,11 @@ const RegisterPage = () => {
       alert(error.message);
     }
   };
-
+  const handleGoogleSignIn = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
   return (
     <div className="container mx-auto my-18 px-2 md:px-0">
       {" "}
@@ -143,13 +148,17 @@ const RegisterPage = () => {
 
         <div className="flex items-center">
           <div className="grow h-px bg-gray-200"></div>
-          <span className="px-3 text-xs text-gray-500 font-medium">
+          {/* <Separator /> */}
+          <div className="px-3 text-xs text-gray-500 font-medium whitespace-nowrap">
             OR CONTINUE WITH
-          </span>
+          </div>{" "}
+          {/* <Separator /> */}
           <div className="grow h-px bg-gray-200"></div>
         </div>
-
-        <button className="w-full flex items-center gap-2 btn btn-primary btn-dash rounded-full h-9 transition-all duration-500 ease-in-out  cursor-pointer hover:-translate-y-0.5">
+        <button
+          onClick={handleGoogleSignIn}
+          className="w-full flex items-center gap-2 btn btn-primary btn-dash rounded-full h-9 transition-all duration-500 ease-in-out  cursor-pointer hover:-translate-y-0.5"
+        >
           <FcGoogle size={20} />
           Continue with Google
         </button>

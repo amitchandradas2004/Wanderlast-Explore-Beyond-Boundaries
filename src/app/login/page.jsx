@@ -28,7 +28,7 @@ const LoginPage = () => {
       email: user.email,
       password: user.password,
     });
-//    console.log(data, error);
+    //    console.log(data, error);
 
     if (data) {
       alert(`Login success.`);
@@ -38,7 +38,11 @@ const LoginPage = () => {
       alert(error.message);
     }
   };
-
+  const handleGoogleSignIn = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
   return (
     <div className="container mx-auto my-18 px-2 md:px-0">
       {" "}
@@ -125,7 +129,10 @@ const LoginPage = () => {
           <div className="grow h-px bg-gray-200"></div>
         </div>
 
-        <button className="w-full flex items-center gap-2 btn btn-primary btn-dash rounded-full h-9 transition-all duration-500 ease-in-out  cursor-pointer hover:-translate-y-0.5">
+        <button
+          onClick={handleGoogleSignIn}
+          className="w-full flex items-center gap-2 btn btn-primary btn-dash rounded-full h-9 transition-all duration-500 ease-in-out  cursor-pointer hover:-translate-y-0.5"
+        >
           <FcGoogle size={20} />
           Continue with Google
         </button>

@@ -105,6 +105,7 @@ const Navbar = () => {
                 <li>
                   <Avatar className="h-8">
                     <Avatar.Image
+                      referrerPolicy="no-referrer"
                       alt={user?.name}
                       src={user?.image}
                       height={50}
