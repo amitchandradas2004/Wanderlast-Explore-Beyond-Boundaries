@@ -1,19 +1,15 @@
 // 'use client'
 import Image from "next/image";
 import Link from "next/link";
-import { FaEdit } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { RiDeleteBinLine } from "react-icons/ri";
-import BookToast from "@/components/BookToast";
 import { EditModal } from "@/components/EditModal";
 import { DeleteDestination } from "@/components/DeleteDestination";
+import BookingCard from "@/components/BookingCard";
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
   const res = await fetch(`http://localhost:5000/destination/${id}`);
   const destination = await res.json();
-  // console.log(destination);
   const {
-    category,
     country,
     departureDate,
     description,
@@ -35,7 +31,7 @@ const DestinationDetailsPage = async ({ params }) => {
         </Link>
         <div className="flex  items-center gap-2">
           <EditModal destination={destination} />
-         <DeleteDestination destination={destination}/>
+          <DeleteDestination destination={destination} />
         </div>
       </div>
       {/* Hero Image */}
@@ -53,7 +49,7 @@ const DestinationDetailsPage = async ({ params }) => {
       </section>
 
       {/* Content */}
-      <section className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-12 lg:grid-cols-3">
+      <section className="mx-auto grid container grid-cols-1 gap-10 px-6 py-12 lg:grid-cols-3">
         {/* Left Content */}
         <div className="lg:col-span-2">
           {/* Location */}
@@ -124,53 +120,7 @@ const DestinationDetailsPage = async ({ params }) => {
         </div>
 
         {/* Booking Card */}
-        <div>
-          <div className="sticky top-10 rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
-            <div className="mb-6">
-              <p className="text-sm text-gray-500">Starting from</p>
-
-              <h3 className="text-4xl font-bold text-cyan-500">${price}</h3>
-
-              <p className="text-gray-500">per person</p>
-            </div>
-
-            {/* Date */}
-            <div className="mb-5">
-              <input
-                type="date"
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-cyan-500"
-                defaultValue={departureDate}
-              />
-            </div>
-
-            {/* Button */}
-            <BookToast />
-            {/* <button
-              onClick={handleBooking}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-500 px-5 py-3 font-medium text-white transition hover:bg-cyan-600 btn"
-            >
-              Book Now →
-            </button> */}
-
-            {/* Features */}
-            <div className="mt-6 space-y-3 text-sm text-gray-600">
-              <div className="flex items-center gap-2">
-                <span className="text-green-500">✔</span>
-                <span>Free cancellation up to 7 days</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="text-green-500">✔</span>
-                <span>Travel insurance included</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="text-green-500">✔</span>
-                <span>24/7 customer support</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <BookingCard destination={destination} />
       </section>
     </main>
   );
