@@ -1,8 +1,141 @@
- 
+"use client";
+
+import { authClient } from "@/lib/auth-client";
+import { EyeSlash } from "@gravity-ui/icons";
+import {
+  Button,
+  FieldError,
+  Form,
+  InputGroup,
+  Label,
+  TextField,
+  Toast,
+} from "@heroui/react";
+import { Check, Eye } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+
 const LoginPage = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+
+    const { data, error } = await authClient.signIn.email({
+      email: user.email,
+      password: user.password,
+    });
+//    console.log(data, error);
+
+    if (data) {
+      alert(`Login success.`);
+      redirect("/destinations");
+    }
+    if (error) {
+      alert(error.message);
+    }
+  };
+
   return (
-    <div className="mt-15">
-      Login Page
+    <div className="container mx-auto my-18 px-2 md:px-0">
+      {" "}
+      <Form
+        onSubmit={onSubmit}
+        className="flex flex-col w-full md:w-110 p-5 rounded-2xl bg-black/10 mx-auto gap-4 border border-slate-300 justify-center shadow-xl backdrop-blur-xl"
+      >
+        <h2 className="font-bold text-center text-2xl">
+          Login to your account
+        </h2>
+
+        <TextField type="email" name="email" isRequired>
+          <Label>Email address</Label>
+          <InputGroup className="rounded-full">
+            <InputGroup.Input
+              // {...register("email", { required: true })}
+              placeholder="Enter your email address"
+              className="rounded-full w-full"
+            />
+          </InputGroup>
+          <FieldError />
+        </TextField>
+
+        <TextField
+          name="password"
+          isRequired
+          className="w-full rounded-full"
+          validate={(value) => {
+            if (value.length < 8) {
+              return "Password must be at least 8 characters";
+            }
+            if (!/[A-Z]/.test(value)) {
+              return "Password must contain at least one uppercase letter";
+            }
+            if (!/[0-9]/.test(value)) {
+              return "Password must contain at least one number";
+            }
+
+            return null;
+          }}
+        >
+          <Label>Password</Label>
+          <InputGroup className="rounded-full">
+            <InputGroup.Input
+              // {...register("password", { required: true })}
+              placeholder="Enter your password"
+              className="w-full rounded-full"
+              type={isVisible ? "text" : "password"}
+            />
+            <InputGroup.Suffix className="pr-0">
+              <Button
+                isIconOnly
+                aria-label={isVisible ? "Hide password" : "Show password"}
+                size="sm"
+                variant="ghost"
+                onPress={() => setIsVisible(!isVisible)}
+              >
+                {isVisible ? (
+                  <Eye className="size-4" />
+                ) : (
+                  <EyeSlash className="size-4" />
+                )}
+              </Button>
+            </InputGroup.Suffix>
+          </InputGroup>
+          <FieldError />
+        </TextField>
+
+        <div className="flex flex-col gap-2 w-full ">
+          <button
+            type="submit"
+            className="w-full btn btn-primary rounded-full transition-all duration-500 ease-in-out  cursor-pointer hover:-translate-y-0.5"
+          >
+            <Check />
+            Register
+          </button>
+        </div>
+
+        <div className="flex items-center">
+          <div className="grow h-px bg-gray-200"></div>
+          <span className="px-3 text-xs text-gray-500 font-medium">
+            OR CONTINUE WITH
+          </span>
+          <div className="grow h-px bg-gray-200"></div>
+        </div>
+
+        <button className="w-full flex items-center gap-2 btn btn-primary btn-dash rounded-full h-9 transition-all duration-500 ease-in-out  cursor-pointer hover:-translate-y-0.5">
+          <FcGoogle size={20} />
+          Continue with Google
+        </button>
+        <span className="font-medium mx-auto mt-2">
+          Did not register yet?{" "}
+          <Link href="/signup">
+            <span className="text-red-600">SignUp</span>
+          </Link>
+        </span>
+      </Form>
     </div>
   );
 };
