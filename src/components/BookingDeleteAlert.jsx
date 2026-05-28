@@ -1,31 +1,35 @@
 "use client";
 
 import { AlertDialog, Button } from "@heroui/react";
-import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
-import { RiDeleteBinLine } from "react-icons/ri";
 
-export function DeleteDestination({ destination }) {
-  const { _id, destinationName } = destination;
+export function BookingDeleteAlert({ bookingId }) {
+  const handleCancelBooking = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/booking/${bookingId}`, {
+        method: "DELETE",
+      });
 
-  const handleDelete = async () => {
-    const res = await fetch(`http://localhost:5000/destination/${_id}`, {
-      method: "DELETE",
-      headers: { "content-type": "application/json" },
-    });
-    const data = await res.json();
-    toast(`${destinationName} is deleted permanantly.`);
-    redirect("/destinations");
+      const data = await res.json();
+      window.location.reload();
+      if (data.deletedCount > 0) {
+        toast.success("Booking cancelled successfully");
+      } else {
+        toast.error("Booking not found");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
   };
 
   return (
     <AlertDialog>
-      <Button variant="danger">
-        {" "}
-        <span className="flex items-center gap-2  text-white">
-          <RiDeleteBinLine />
-          Delete
-        </span>
+      <Button
+        variant="danger"
+        className="rounded-full  px-6 py-2 text-sm font-medium "
+      >
+        Cancel
       </Button>
       <AlertDialog.Backdrop>
         <AlertDialog.Container>
@@ -34,13 +38,12 @@ export function DeleteDestination({ destination }) {
             <AlertDialog.Header>
               <AlertDialog.Icon status="danger" />
               <AlertDialog.Heading>
-                Delete Destination permanently?
+                Delete Booking permanently?
               </AlertDialog.Heading>
             </AlertDialog.Header>
             <AlertDialog.Body>
               <p>
-                This will permanently delete
-                <strong> {destinationName} </strong>
+                This will permanently delete <strong>My Awesome Project</strong>{" "}
                 and all of its data. This action cannot be undone.
               </p>
             </AlertDialog.Body>
@@ -48,8 +51,12 @@ export function DeleteDestination({ destination }) {
               <Button slot="close" variant="tertiary">
                 Cancel
               </Button>
-              <Button onClick={handleDelete} slot="close" variant="danger">
-                Delete Destination
+              <Button
+                onClick={handleCancelBooking}
+                slot="close"
+                variant="danger"
+              >
+                Delete
               </Button>
             </AlertDialog.Footer>
           </AlertDialog.Dialog>

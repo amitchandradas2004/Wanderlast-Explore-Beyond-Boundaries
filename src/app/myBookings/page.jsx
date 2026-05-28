@@ -1,3 +1,4 @@
+import { BookingDeleteAlert } from "@/components/BookingDeleteAlert";
 import { auth } from "@/lib/auth";
 import { Button } from "@heroui/react";
 import { headers } from "next/headers";
@@ -10,16 +11,15 @@ const MyBookingsPage = async () => {
   const user = session?.user;
   const res = await fetch(`http://localhost:5000/booking/${user?.id}`);
   const bookings = await res.json();
-  console.log(bookings);
   return (
-    <div className="mt-30 container mx-auto">
+    <div className="container mx-auto mt-20 px-4">
       {bookings.map((booking) => (
         <div
           key={booking.userId}
-          className="mb-5 flex items-center justify-between rounded-2xl border border-gray-200 bg-white p-6"
+          className="mb-6 flex flex-col gap-6 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm md:p-6 lg:flex-row lg:items-center lg:justify-between"
         >
           {/* Left Side */}
-          <div className="flex flex-col md:flex-row items-center gap-6">
+          <div className="flex flex-col gap-5 md:flex-row items-center">
             {/* Image */}
             <div className="overflow-hidden rounded-xl">
               <Image
@@ -27,12 +27,12 @@ const MyBookingsPage = async () => {
                 alt={booking?.destinationName}
                 width={260}
                 height={180}
-                className="h-40 w-65 object-cover"
+                className="h-52 w-full object-cover sm:h-40 sm:w-64"
               />
             </div>
 
             {/* Content */}
-            <div>
+            <div className="flex-1">
               {/* Status */}
               <div
                 className={`mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${
@@ -46,12 +46,12 @@ const MyBookingsPage = async () => {
               </div>
 
               {/* Title */}
-              <h2 className="text-4xl font-bold text-gray-900">
+              <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">
                 {booking?.destinationName}
               </h2>
 
               {/* Details */}
-              <div className="mt-4 space-y-2 text-sm text-gray-500">
+              <div className="mt-4 space-y-2 text-sm text-gray-500 sm:text-base">
                 <p className="flex items-center gap-2">
                   📅
                   {new Date(booking?.departureDate).toLocaleDateString(
@@ -66,22 +66,22 @@ const MyBookingsPage = async () => {
               </div>
 
               {/* Price */}
-              <h3 className="mt-5 text-4xl font-bold text-cyan-500">
+              <h3 className="mt-5 text-3xl font-bold text-cyan-500 sm:text-4xl">
                 ${booking?.price}
               </h3>
             </div>
           </div>
 
-          {/* Right Side Buttons */}
-          <div className="flex gap-3">
+          {/* Buttons */}
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+   
+            <BookingDeleteAlert bookingId={booking._id} />
             <Button
-              variant="danger"
-              className="rounded-lg  px-6 py-2 text-sm font-medium "
+              variant="primary"
+              className="w-full px-6 py-3 text-sm font-medium sm:w-auto"
             >
-              Cancel
+              View
             </Button>
-
-            <Button className=" px-6 py-2 text-sm font-medium">View</Button>
           </div>
         </div>
       ))}

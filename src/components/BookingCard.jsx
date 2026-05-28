@@ -2,6 +2,7 @@
 
 import { authClient } from "@/lib/auth-client";
 import { DateField, Description, Label } from "@heroui/react";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -31,6 +32,7 @@ const BookingCard = ({ destination }) => {
     });
     const data = await res.json();
     toast.success(`You have successfully booked ${destinationName}`);
+    redirect("/myBookings");
   };
   return (
     <div>
