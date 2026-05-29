@@ -8,8 +8,16 @@ const MyBookingsPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const user = session?.user;
-  const res = await fetch(`http://localhost:5000/booking/${user?.id}`);
+  const res = await fetch(`http://localhost:5000/booking/${user?.id}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
   const bookings = await res.json();
   return (
     <div className="container mx-auto mt-20 px-4">
@@ -74,7 +82,6 @@ const MyBookingsPage = async () => {
 
           {/* Buttons */}
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-   
             <BookingDeleteAlert bookingId={booking._id} />
             <Button
               variant="primary"

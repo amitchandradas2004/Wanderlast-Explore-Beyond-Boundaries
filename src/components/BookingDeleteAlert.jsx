@@ -1,13 +1,19 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
 import toast from "react-hot-toast";
 
 export function BookingDeleteAlert({ bookingId }) {
   const handleCancelBooking = async () => {
+    const { data: tokenData } = await authClient.token();
     try {
       const res = await fetch(`http://localhost:5000/booking/${bookingId}`, {
         method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
       });
 
       const data = await res.json();
@@ -18,7 +24,7 @@ export function BookingDeleteAlert({ bookingId }) {
         toast.error("Booking not found");
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       toast.error("Something went wrong");
     }
   };

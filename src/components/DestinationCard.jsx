@@ -109,7 +109,7 @@ const DestinationCard = ({ destination }) => {
            text-[#00A8E7] rounded-full text-sx h-8 mt-3 flex items-center hover:text-white
             "
           >
-            Book Now <CgArrowTopRight />
+            See Details <CgArrowTopRight />
           </span>
         </Link>
       </div>

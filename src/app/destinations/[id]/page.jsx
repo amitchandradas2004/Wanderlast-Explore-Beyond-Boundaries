@@ -5,9 +5,21 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { EditModal } from "@/components/EditModal";
 import { DeleteDestination } from "@/components/DeleteDestination";
 import BookingCard from "@/components/BookingCard";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
-  const res = await fetch(`http://localhost:5000/destination/${id}`);
+
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
+  console.log(token, "Token");
+  const res = await fetch(`http://localhost:5000/destination/${id}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
   const destination = await res.json();
   const {
     country,
