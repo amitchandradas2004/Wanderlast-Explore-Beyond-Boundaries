@@ -13,11 +13,14 @@ const MyBookingsPage = async () => {
   });
 
   const user = session?.user;
-  const res = await fetch(`http://localhost:5000/booking/${user?.id}`, {
-    headers: {
-      authorization: `Bearer ${token}`,
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/booking/${user?.id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
   const bookings = await res.json();
   return (
     <div className="container mx-auto mt-20 px-4">

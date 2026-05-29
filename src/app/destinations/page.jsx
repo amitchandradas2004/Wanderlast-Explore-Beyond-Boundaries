@@ -4,9 +4,8 @@ export const metadata = {
 };
 import DestinationCard from "@/components/DestinationCard";
 const DestinationsPage = async () => {
-  const res = await fetch("http://localhost:5000/destination");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destination`);
   const destinations = await res.json();
-  // console.log(destinations);
   return (
     <div className="pt-20 container mx-auto px-3 md:px-0">
       <div className="text-center md:text-start">
